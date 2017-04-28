@@ -2,15 +2,12 @@ INCLUDE Irvine32.inc
 
 ;--------------------------------------------------------
 ;Student:Michael Tretiak
-;S.Number:10173301
 ;CPSC 355 Assignment 4
 ; Program is to behavor like an ATM
 ; First prompt for account and pin
 ; then let user decide which option to pick from 5 choices
 ; NOTE: THIS PROGRAM IS NOT FINISHED. PROGRAM WILL RUN IF YOU DO NOT ENTER A PIN
-;PROGRAM WILL NOT CHECK PIN. MAINLY EVERYTHING ELSE WILL WORK.
-;LACK OF DOCUMENTATION AND COMMENTING DUE TO A COMPUTER UPDATE AT LAST MIN
-;I HAVE CONTACTED DR. SAID TO ASK FOR AN EXTENTION AND WILL ATTEMP TO UPLOAD ONE AT A LATER DATE.
+;PROGRAM WILL NOT CHECK PIN. 
 ;-------------------------------------------------------
 
 ;-------------------
@@ -63,7 +60,7 @@ INCLUDE Irvine32.inc
 	totalDeposit WORD ?
 
 
-	
+
 
 ;--------------
 ;CODE
@@ -98,7 +95,7 @@ INCLUDE Irvine32.inc
 
 		;-------------------------------------------------------
 		;prompts for account number
-		;still need to write check against account array 
+		;still need to write check against account array
 		;still need to write error and compare to ecx
 		;-------------------------------------------------------
 			mov ecx, 0 ;set to zero for our count
@@ -134,7 +131,7 @@ INCLUDE Irvine32.inc
 					call writestring
 					call info
 
-				
+
 
 
 				;mov edx, accountNumber;for error checking
@@ -146,7 +143,7 @@ INCLUDE Irvine32.inc
 				call ReadInt
 				mov pin, ax
 
-			
+
 
 
 
@@ -187,12 +184,12 @@ INCLUDE Irvine32.inc
 
 			cmp ax,1
 				je displayBalance1
-				
-			
+
+
 
 			cmp ax,2
 				je withdraw1
-			
+
 			cmp ax,3
 				je deposit1
 
@@ -248,13 +245,13 @@ INCLUDE Irvine32.inc
 				loop L1
 
 				N1:
-				
+
 					mov eax, balances[ecx*4]
 					call WriteInt
 					call Crlf
 
 
-			
+
 			mov eax,0
 			mov edx,0
 			call prompt
@@ -277,7 +274,7 @@ INCLUDE Irvine32.inc
 				;1000>withdrawAmount?
 				cmp  withdrawAmount, bx ;compares to see if withdraw is larger than 1000
 				ja errorHigh
-				
+
 				;call WriteInt
 
 				;finds account number and holds counter
@@ -291,7 +288,7 @@ INCLUDE Irvine32.inc
 					je N2
 				loop L2
 
-				
+
 				N2:
 					mov eax, balances[ecx*4]
 					;ax>withdrawAmount?
@@ -299,14 +296,14 @@ INCLUDE Irvine32.inc
 					jb errorHigh
 					ja subJump
 					;enter jump
-						
+
 						subJump:
 							;mov edx, OFFSET msgHere
 							;call WriteString
 
 							sub ax, withdrawAmount
 							mov balances[ecx*4], eax
-							
+
 							;mov ax,withdrawAmount
 							;add totalWithdraw, ax
 
@@ -316,22 +313,22 @@ INCLUDE Irvine32.inc
 							;mov ax,0
 							;cmp ax,dx
 							jmp next
-							
+
 						errorHigh:
-							
+
 							mov edx,OFFSET msgWithdrawHigh ;change to error message
 							call WriteString
 							call crlf
 							call withdraw
 
-							
+
 
 						next:;jump here if we did sub
 						;call display balance
 
 
 
-				
+
 			mov edx, OFFSET msgWithdrawSuccesful
 			call writestring
 			call writeInt
@@ -377,10 +374,10 @@ deposit Proc
 		call ReadInt
 		;call crlf
 		mov depositAmount, ax
-	
+
 
 		jmp next
-		
+
 		;jumps to l2 when done
 		;mov edx, OFFSET msgHERE
 		;call writeString
@@ -422,10 +419,10 @@ deposit Proc
 
 ret
 deposit ENDP
-		
+
 
 print Proc
-	
+
 	call Crlf
 	mov edx, OFFSET msgAccountNumber
 	call WriteString
@@ -433,8 +430,8 @@ print Proc
 	mov eax, accountNumber
 	call WriteInt
 	call crlf
-	
-	
+
+
 	mov eax,0
 	call Crlf
 	mov edx, OFFSET msgWithdrawTotal
